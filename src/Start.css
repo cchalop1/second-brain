@@ -1,0 +1,11 @@
+.start {
+  display: flex;
+  flex-direction: column;
+}
+
+.chrono {
+    text-align: center;
+    margin-top: 4vh;
+    font-size: 20px;
+    /* background-color: red; */
+}
