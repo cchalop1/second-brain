@@ -7,5 +7,8 @@
     text-align: center;
     margin-top: 4vh;
     font-size: 20px;
-    /* background-color: red; */
+}
+
+.opp h1 {
+    text-align: center;
 }
