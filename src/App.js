@@ -38,6 +38,10 @@ const App = () => {
     setOption(new Option(option.time, option.size, option.multi, option.add, option.sub))
   }
 
+  const end = (list, audio) => {
+    
+  }
+
   if (!option)
     return <Home option={option} start={start}/>
   else
