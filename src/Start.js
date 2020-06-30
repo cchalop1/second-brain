@@ -54,11 +54,14 @@ const Start = (props) => {
 
     useEffect(() => {
         setCalcList(create_list_calc(props.option));
+    }, []);
+ 
+    if (index == 0) { 
         setInterval(() => {
             textToSpeech(calcList[index]);
             setIndex(index + 1);
         }, props.option.size * 1000);
-    }, []);
+    }
 
     if (!calcList) {
         return <div />;
