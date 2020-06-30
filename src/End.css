@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.elem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.calc {
+    display: flex;
+}
+
+.elem p {
+    font-size: 22px;
+}
