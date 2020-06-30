@@ -3,24 +3,29 @@ import './Start.css';
 import Time from './Time'
 import { create_list_calc } from './utils';
 
-const textToSpeech = (message) => {
+
+const loadSpeechLangage = () => {
     let available_voices = window.speechSynthesis.getVoices();
-
-    let english_voice = '';
-
+    
+    let voice = '';
+    
     for (let i = 0; i < available_voices.length; i++) {
         if (available_voices[i].lang === 'fr-FR') {
-            english_voice = available_voices[i];
+            voice = available_voices[i];
             break;
         }
     }
-    if (english_voice === '')
-        english_voice = available_voices[0];
+    if (voice === '')
+        voice = available_voices[0];
+    return voice
+}
+
+const textToSpeech = (message, voice) => {
     let utter = new SpeechSynthesisUtterance();
     utter.rate = 1;
     utter.pitch = 0.5;
     utter.text = message;
-    utter.voice = english_voice;
+    utter.voice = voice;
     window.speechSynthesis.speak(utter);
 }
 
@@ -53,13 +58,14 @@ class DispalyCalc extends React.Component {
         super(props);
         this.state = {
             index : 0,
-            inter: undefined
+            inter: undefined,
+            voice: loadSpeechLangage()
         }
     }
 
     componentDidMount() {
         this.setState({inter: setInterval(() => {
-            textToSpeech(this.props.calcList[this.state.index]);
+            textToSpeech(this.props.calcList[this.state.index], this.state.voice);
             this.setState({index: this.state.index + 1})
         }, this.props.option.size * 1000)});
 
@@ -75,19 +81,6 @@ class DispalyCalc extends React.Component {
         </div>)
     }
 }
-
-// const DispalyCalc = (props) => {
-//     const [index, setIndex] = useState(0);
-
-//     useEffect(() => {
-//         textToSpeech(props.calcList[index]);
-//         setIndex(index + 1);
-//     }, props.option.size * 1000)
-
-//     return (<div className="display-calc">
-//         <h1>{props.calcList[index]}</h1>
-//     </div>);
-// }
 
 const Start = (props) => {
     const [calcList, setCalcList] = useState(undefined);

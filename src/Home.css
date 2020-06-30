@@ -1,6 +1,10 @@
+.Home {
+  margin-left: 60vh;
+  margin-right: 60vh;
+}
+
 .title {
   margin-top: 3vh;
-  margin-left: 3vh;
   margin-bottom: 10vh;
   text-align: center;
 }
@@ -9,27 +13,23 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 5vh;
-  margin-left: 3vh;
-}
-
-.input input {
-  margin-right: 4vh;
 }
 
 .opt {
   margin-bottom: 5vh;
-  margin-left: 3vh;
 }
+
 .opp {
   display: flex;
-  margin-left: 1vh;
-
-
-}
-.opp h1 {
-  margin-left: 2vh;
 }
 
 .btn {
   text-align: center;
+}
+
+@media screen and (max-width: 420px) {
+  .Home {
+      margin-left: 0vh;
+      margin-right: 0vh;
+  }
 }

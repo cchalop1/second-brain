@@ -1,6 +1,9 @@
 .main {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    margin-left: 60vh;
+    margin-right: 60vh;
 }
 
 .elem {
@@ -15,4 +18,11 @@
 
 .elem p {
     font-size: 22px;
+}
+
+@media screen and (max-width: 420px) {
+  .main {
+      margin-left: 0vh;
+      margin-right: 0vh;
+  }
 }
