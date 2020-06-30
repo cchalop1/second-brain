@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Profiler } from 'react';
 import './Start.css';
 import Time from './Time'
 import { create_list_calc } from './utils';
@@ -42,26 +42,35 @@ const AudioRecoder = (props) => {
                 })
                 setTimeout(() => {
                     mediaRecorder.stop();
-                }, (props.option.time * props.option.size) * 1000);
+                }, (props.option.time * props.option.size + 1) * 1000);
             });
     }, []);
     return <div />
 }
 
-const Start = (props) => {
+const DispalyCalc = (props) => {
     const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        setInterval(() => {
+            if (index < props.calcList.length) {
+                textToSpeech(props.calcList[index]);
+                setIndex(index + 1);
+            }
+        }, props.option.size * 1000);
+    }, []);
+
+    return (<div className="display-calc">
+        <h1>{props.calcList[index]}</h1>
+    </div>);
+}
+
+const Start = (props) => {
     const [calcList, setCalcList] = useState(undefined);
 
     useEffect(() => {
         setCalcList(create_list_calc(props.option));
     }, []);
- 
-    if (index == 0) { 
-        setInterval(() => {
-            textToSpeech(calcList[index]);
-            setIndex(index + 1);
-        }, props.option.size * 1000);
-    }
 
     if (!calcList) {
         return <div />;
@@ -71,9 +80,7 @@ const Start = (props) => {
                 <Time {...props} />
                 <AudioRecoder {...props} calcList={calcList} />
                 <div className="chrono"><h3>{props.option.size} operations</h3></div>
-                <div className="display-calc">
-                    <h1>{calcList[index]}</h1>
-                </div>
+                <DispalyCalc  {...props} calcList={calcList} />
             </div>
         );
     }
