@@ -48,22 +48,46 @@ const AudioRecoder = (props) => {
     return <div />
 }
 
-const DispalyCalc = (props) => {
-    const [index, setIndex] = useState(0);
+class DispalyCalc extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            index : 0,
+            inter: undefined
+        }
+    }
 
-    useEffect(() => {
-        setInterval(() => {
-            if (index < props.calcList.length) {
-                textToSpeech(props.calcList[index]);
-                setIndex(index + 1);
-            }
-        }, props.option.size * 1000);
-    }, []);
+    componentDidMount() {
+        this.setState({inter: setInterval(() => {
+            textToSpeech(this.props.calcList[this.state.index]);
+            this.setState({index: this.state.index + 1})
+        }, this.props.option.size * 1000)});
 
-    return (<div className="display-calc">
-        <h1>{props.calcList[index]}</h1>
-    </div>);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.inter);
+    }
+
+    render() {
+        return (<div className="display-calc">
+            <h1>{this.props.calcList[this.state.index]}</h1>
+        </div>)
+    }
 }
+
+// const DispalyCalc = (props) => {
+//     const [index, setIndex] = useState(0);
+
+//     useEffect(() => {
+//         textToSpeech(props.calcList[index]);
+//         setIndex(index + 1);
+//     }, props.option.size * 1000)
+
+//     return (<div className="display-calc">
+//         <h1>{props.calcList[index]}</h1>
+//     </div>);
+// }
 
 const Start = (props) => {
     const [calcList, setCalcList] = useState(undefined);
